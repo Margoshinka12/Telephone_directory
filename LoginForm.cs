@@ -136,7 +136,7 @@ namespace WindowsFormsApp1
                 return pwd ==GetHash(password+salt); }
 
         }
-        private static bool Registrated(string login, string password)
+        private static bool Registration(string login, string password)
         {
             var salt = GenerateSalt();
             var hash = GetHash(password+salt);
