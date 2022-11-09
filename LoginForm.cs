@@ -191,7 +191,7 @@ namespace WindowsFormsApp1
 
             // frm = new LoginForm();
 
-            Result = Registrated(Login, Password);
+            Result = Registration(Login, Password);
             MessageBox.Show(Result ?
             "Успешно" : "Неуспешно");
             
