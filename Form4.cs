@@ -2,25 +2,7 @@
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
-{public class District
-    {   public string DistrictName;
-        
-       
-
-        public District(string districtName
-            )
-        {
-            this.DistrictName = districtName;
-
-            
-            
-        }
-
-        public District()
-        {
-            this.DistrictName = "";
-        }
-    }
+{
     public partial class Form4 : Form
     {
         public District D;
@@ -35,6 +17,30 @@ namespace WindowsFormsApp1
             {
                 DistrictName = textBox1.Text
             };
+        }
+        public void WriteInForm()
+        {
+            textBox1.Text = D.DistrictName;
+        }
+    }
+    public class District
+    {
+        public string DistrictName;
+
+
+
+        public District(string districtName
+            )
+        {
+            this.DistrictName = districtName;
+
+
+
+        }
+
+        public District()
+        {
+            this.DistrictName = "";
         }
     }
 }

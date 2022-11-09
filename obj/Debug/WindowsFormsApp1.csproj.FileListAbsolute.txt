@@ -8,7 +8,8 @@ C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Windows
 C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.CoreCompileInputs.cache
 C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.exe
 C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.pdb
-C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form1.resources
-C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.City.resources
-C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Country.resources
-C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.District.resources
+C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form2.resources
+C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form3.resources
+C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form4.resources
+C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.MainForm.resources
+C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.LoginForm.resources

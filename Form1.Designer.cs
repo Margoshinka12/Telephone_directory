@@ -1,6 +1,6 @@
 ﻿namespace WindowsFormsApp1
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,43 +57,49 @@
             // 
             // contextMenuStrip1
             // 
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { this.добавитьToolStripMenuItem, this.добавитьГородToolStripMenuItem, this.добавитьToolStripMenuItem1, this.updateToolStripMenuItem, this.удалитьToolStripMenuItem });
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.добавитьToolStripMenuItem,
+            this.добавитьГородToolStripMenuItem,
+            this.добавитьToolStripMenuItem1,
+            this.updateToolStripMenuItem,
+            this.удалитьToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(193, 124);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(211, 152);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             // 
             // добавитьToolStripMenuItem
             // 
             this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
-            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(192, 24);
+            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.добавитьToolStripMenuItem.Text = "Insert the country";
             this.добавитьToolStripMenuItem.Click += new System.EventHandler(this.InsertTheCountry);
             // 
             // добавитьГородToolStripMenuItem
             // 
             this.добавитьГородToolStripMenuItem.Name = "добавитьГородToolStripMenuItem";
-            this.добавитьГородToolStripMenuItem.Size = new System.Drawing.Size(192, 24);
+            this.добавитьГородToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.добавитьГородToolStripMenuItem.Text = "Insert the city";
             this.добавитьГородToolStripMenuItem.Click += new System.EventHandler(this.InsertTheCity);
             // 
             // добавитьToolStripMenuItem1
             // 
             this.добавитьToolStripMenuItem1.Name = "добавитьToolStripMenuItem1";
-            this.добавитьToolStripMenuItem1.Size = new System.Drawing.Size(192, 24);
+            this.добавитьToolStripMenuItem1.Size = new System.Drawing.Size(210, 24);
             this.добавитьToolStripMenuItem1.Text = "Insert the district";
             this.добавитьToolStripMenuItem1.Click += new System.EventHandler(this.InsertTheDistrict);
             // 
             // updateToolStripMenuItem
             // 
             this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
-            this.updateToolStripMenuItem.Size = new System.Drawing.Size(192, 24);
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.updateToolStripMenuItem.Text = "Update";
             this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
             // 
             // удалитьToolStripMenuItem
             // 
             this.удалитьToolStripMenuItem.Name = "удалитьToolStripMenuItem";
-            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(192, 24);
+            this.удалитьToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.удалитьToolStripMenuItem.Text = "Delete";
             this.удалитьToolStripMenuItem.Click += new System.EventHandler(this.Delete);
             // 
@@ -115,18 +121,20 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.treeView1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.IsMdiContainer = true;
+            this.Name = "MainForm";
+            this.Text = "Телефонный справочник";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;

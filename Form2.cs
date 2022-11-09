@@ -2,24 +2,7 @@
 using System.Windows.Forms;
 
 namespace WindowsFormsApp1
-{    public class Country
-    {   public string CountryName;
-        public string Location;
-
-        public Country(string countryName,
-            string location)
-
-        {
-            this.Location = location;
-            this.CountryName = countryName;
-        }
-
-        public Country()
-        {
-            this.Location = "";
-            this.CountryName = "";
-        }
-    }
+{    
     public partial class Form2 : Form
     {
         public Form2()
@@ -40,7 +23,34 @@ namespace WindowsFormsApp1
                 Close();
             
             }
-        
+        public void WriteInForm()
+        {
+            textBox1.Text = Cnt.CountryName;
+            textBox2.Text = Cnt.Location;
+        }
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
-    
+    public class Country
+    {
+        public string CountryName;
+        public string Location;
+
+        public Country(string countryName,
+            string location)
+
+        {
+            this.Location = location;
+            this.CountryName = countryName;
+        }
+
+        public Country()
+        {
+            this.Location = "";
+            this.CountryName = "";
+        }
+    }
+
 }

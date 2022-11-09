@@ -55,6 +55,7 @@ namespace WindowsFormsApp1
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(189, 22);
             this.textBox2.TabIndex = 12;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // label2
             // 
@@ -93,6 +94,7 @@ namespace WindowsFormsApp1
             this.Text = "Form2";
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.Button button1;

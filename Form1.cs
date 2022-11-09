@@ -5,15 +5,25 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private const string Cs = @"Data Source = LAPTOP-SETO9IMR\SQLEXPRESS; Initial Catalog = World; Integrated Security = true;";
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
+            
+           
         }
-
+        public void OpenLoginForm()
+        {
+            LoginForm lf = new LoginForm();
+            lf.ShowDialog();
+            if (lf.DialogResult == DialogResult.Cancel)
+            {
+                Close();
+            }
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             // throw new System.NotImplementedException();
@@ -29,9 +39,11 @@ namespace WindowsFormsApp1
                                          FROM (Country LEFT OUTER JOIN City ON Country.id_country = City.id_country)
                                          LEFT OUTER JOIN District  ON District.id_city= City.id_city
                                          ORDER BY Country.country, Country.id_country, City.city,City.id_city, District.district, District.id_district";
+               
                 var cmd = new SqlCommand(sql, cn);
-
-                var dr = cmd.ExecuteReader();
+                if (cmd == null) return;
+                
+                    var dr = cmd.ExecuteReader();
                 // while (dr.Read())
                 // {
                 //     TreeNode n = new TreeNode(dr["country"].ToString(),0,0);
@@ -317,10 +329,174 @@ private void InsertCity()
         {
             InsertDistrict();
         }
+        private void UpdateDistrict()
+        {
+            var form = new Form4();
+            using (SqlConnection cn = new SqlConnection(Cs))
+            {
+                cn.Open();
+                var sql = @"SELECT district  FROM District WHERE district = @name2";
+                var cmd = new SqlCommand(sql, cn);
 
+                cmd.Parameters.AddWithValue("@name2", treeView1.SelectedNode.Text);
+                cmd.ExecuteNonQuery();
+                var dr = cmd.ExecuteReader();
+                dr.Read();
+                form.D = new District()
+                {
+                    DistrictName = (string)dr["district"]
+
+                };
+                dr.Close();
+                form.WriteInForm();
+
+            }
+            form.ShowDialog();
+            District district = null;
+            if (form.DialogResult == DialogResult.OK)
+            {
+                district = form.D;
+            }
+
+            using (var cn = new SqlConnection(Cs))
+            {
+                cn.Open();
+
+
+
+                var sql = @"UPDATE District
+                            SET district = @name1
+                            WHERE district = @name2";
+                var cmd = new SqlCommand(sql, cn);
+                if (district == null) return;
+                cmd.Parameters.AddWithValue("@name1", district.DistrictName);
+                cmd.Parameters.AddWithValue("@name2", treeView1.SelectedNode.Text);
+
+                cmd.ExecuteNonQuery();
+
+
+                treeView1.SelectedNode.Text = district.DistrictName;
+            }
+        }
+        private void UpdateCity()
+        {
+            var form = new Form3();
+
+            using (SqlConnection cn = new SqlConnection(Cs))
+            {
+                cn.Open();
+                var sql = @"SELECT city , number_of_districts, time_zone, latitude, longitude FROM City WHERE city = @name2";
+                var cmd = new SqlCommand(sql, cn);
+
+                cmd.Parameters.AddWithValue("@name2", treeView1.SelectedNode.Text);
+                cmd.ExecuteNonQuery();
+                var dr = cmd.ExecuteReader();
+                dr.Read();
+                form.C = new City()
+                {
+                    CityName = (string)dr["city"],
+                    NumberOfDistricts = (int)dr["number_of_districts"],
+                    TimeZone = (int)dr["time_zone"],
+                    Latitude = (float)dr["latitude"],
+                    Longitude = (float)dr["longitude"]
+
+                };
+                dr.Close();
+                form.WriteInForm();
+
+            }
+            form.ShowDialog();
+            City city = null;
+            if (form.DialogResult == DialogResult.OK)
+            {
+                city = form.C;
+            }
+
+            using (var cn = new SqlConnection(Cs))
+            {
+                cn.Open();
+
+
+
+                var sql = @"Update City SET city =  @name1 ,number_of_districts =   @num, time_zone = @tz, latitude = @lat,longitude =  @long WHERE city = @name2";
+                var cmd = new SqlCommand(sql, cn);
+                if (city == null) return;
+                cmd.Parameters.AddWithValue("@name1", city.CityName);
+
+                cmd.Parameters.AddWithValue("@num", city.NumberOfDistricts);
+                cmd.Parameters.AddWithValue("@tz", city.TimeZone);
+                cmd.Parameters.AddWithValue("@lat", city.Latitude);
+                cmd.Parameters.AddWithValue("@long", city.Longitude);
+                cmd.Parameters.AddWithValue("@name2", treeView1.SelectedNode.Text);
+
+                cmd.ExecuteNonQuery();
+
+
+
+
+
+
+                treeView1.SelectedNode.Text = city.CityName;
+            }
+        }
+        private void UpdateCountry()
+        {
+            var form = new Form2();
+            using (SqlConnection cn = new SqlConnection(Cs))
+            {
+                cn.Open();
+                var sql = @"SELECT country , location FROM Country WHERE country = @name2";
+                var cmd = new SqlCommand(sql, cn);
+
+                cmd.Parameters.AddWithValue("@name2", treeView1.SelectedNode.Text);
+                cmd.ExecuteNonQuery();
+                var dr = cmd.ExecuteReader();
+                dr.Read();
+                form.Cnt = new Country()
+                {
+                    CountryName = (string)dr["country"],
+                    Location = (string)dr["location"]
+                };
+                dr.Close();
+                form.WriteInForm();
+
+            }
+
+            form.ShowDialog();
+            Country country = null;
+            if (form.DialogResult == DialogResult.OK)
+            {
+                country = form.Cnt;
+            }
+            using (SqlConnection cn = new SqlConnection(Cs))
+            {
+                cn.Open();
+                var sql = @"Update Country SET country =  @name1 , location =  @location WHERE country = @name2";
+                var cmd = new SqlCommand(sql, cn);
+                if (country == null) return;
+                cmd.Parameters.AddWithValue("@name1", country.CountryName);
+                cmd.Parameters.AddWithValue("@location", country.Location);
+                cmd.Parameters.AddWithValue("@name2", treeView1.SelectedNode.Text);
+                cmd.ExecuteNonQuery();
+
+
+                treeView1.SelectedNode.Text = country.CountryName;
+            }
+        }
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            if(treeView1.SelectedNode.Level == 2)
+            {
+                UpdateDistrict();
+            }
+            else if (treeView1.SelectedNode.Level == 1)
+            {
+                UpdateCity();
+            }
+            else
+            {
+                UpdateCountry();
+            }
         }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
