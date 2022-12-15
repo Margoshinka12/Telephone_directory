@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WindowsFormsApp1
 {
@@ -26,7 +27,11 @@ namespace WindowsFormsApp1
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            // throw new System.NotImplementedException();
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "worldDataSet.Oper". При необходимости она может быть перемещена или удалена.
+            this.operTableAdapter.Fill(this.worldDataSet.Oper);
+
+
+
         }
 
         private void DownloadFromDb()
@@ -34,11 +39,11 @@ namespace WindowsFormsApp1
             using (var cn = new SqlConnection(Cs))
             {
                 cn.Open();
-                const string sql = @"SELECT Country.country, City.city, District.district,
-                                         Country.id_country , City.id_city, District.id_district
-                                         FROM (Country LEFT OUTER JOIN City ON Country.id_country = City.id_country)
-                                         LEFT OUTER JOIN District  ON District.id_city= City.id_city
-                                         ORDER BY Country.country, Country.id_country, City.city,City.id_city, District.district, District.id_district";
+                const string sql = @"SELECT Country.country,Area.area, City.city, District.district,
+                                         Country.id_country , Area.id_area, City.id_city, District.id_district
+                                         FROM (Country LEFT JOIN Area ON Area.id_country = Country.id_country
+                                          LEFT JOIN City ON City.id_area = Area.id_area LEFT JOIN District ON District.id_city = City.id_city)
+                                         ORDER BY Country.country, Country.id_country, Area.area, Area.id_area,City.city,City.id_city, District.district, District.id_district";
                
                 var cmd = new SqlCommand(sql, cn);
                 if (cmd == null) return;
@@ -52,9 +57,11 @@ namespace WindowsFormsApp1
                 // }
                 var lastIdCountry = -1;
                 var lastIdCity = -1;
+                var lastIdArea = -1;
                 var lastIdDistrict = -1;
                 TreeNode lastAddedCity=null;
                 TreeNode lastAddedCountry=null;
+                TreeNode lastAddedArea = null;
                 while (dr.Read())
                 {
                     var countryName = (string)dr["country"];
@@ -66,15 +73,25 @@ namespace WindowsFormsApp1
                         lastIdCountry = idCountry;
                         lastAddedCountry.Tag = dr["id_country"];
                     }
+                    if (dr["area"] is DBNull) continue;
+                    var areaName = (string)dr["area"];
+                    var idArea = (int)dr["id_area"];
 
+                    if (idArea != lastIdArea)
+                    {
+                        lastAddedArea = new TreeNode(areaName, 1, 1);
+                        lastAddedCountry?.Nodes.Add(lastAddedArea);
+                        lastIdArea = idArea;
+                        lastAddedArea.Tag = dr["id_area"];
+                    }
                     if (dr["city"] is DBNull) continue;
                     var cityName = (string)dr["city"];
                     var idCity = (int)dr["id_city"];
 
                     if (idCity != lastIdCity)
                     {
-                        lastAddedCity = new TreeNode(cityName, 1, 1);
-                        lastAddedCountry?.Nodes.Add(lastAddedCity);
+                        lastAddedCity = new TreeNode(cityName, 2, 2);
+                        lastAddedArea?.Nodes.Add(lastAddedCity);
                         lastIdCity = idCity;
                         lastAddedCity.Tag = dr["id_city"];
                     }
@@ -83,7 +100,7 @@ namespace WindowsFormsApp1
                     var districtName = (string)dr["district"];
                     var idDistrict = (int)dr["id_district"];
                     if (idDistrict == lastIdDistrict) continue;
-                    var lastAddedDistrict = new TreeNode(districtName, 2, 2);
+                    var lastAddedDistrict = new TreeNode(districtName, 3, 3);
                     lastAddedCity?.Nodes.Add(lastAddedDistrict);
                     lastIdDistrict = idDistrict;
                     lastAddedDistrict.Tag = dr["id_district"];
@@ -120,11 +137,14 @@ namespace WindowsFormsApp1
         {
             switch (treeView1.SelectedNode.Level)
             {
-                case 2:
+                case 3:
                     DeleteDistrict();
                     break;
-                case 1:
+                case 2:
                     DeleteCity();
+                    break;
+                case 1:
+                    DeleteArea();
                     break;
                 default:
                     DeleteCountry();
@@ -156,6 +176,18 @@ namespace WindowsFormsApp1
                 treeView1.SelectedNode.Remove();
             }
         }
+        private void DeleteArea()
+        {
+            using (var cn = new SqlConnection(Cs))
+            {
+                cn.Open();
+                const string sql = @"delete from Area where id_area = @id";
+                var cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.AddWithValue("@id", treeView1.SelectedNode.Tag);
+                cmd.ExecuteNonQuery();
+                treeView1.SelectedNode.Remove();
+            }
+        }
         private void DeleteCountry()
         {
             using (var cn = new SqlConnection(Cs))
@@ -170,23 +202,40 @@ namespace WindowsFormsApp1
         }
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
-        {
+        {  if (treeView1.SelectedNode == null) { добавитьToolStripMenuItem.Enabled = true;
+                удалитьToolStripMenuItem.Enabled = false;
+                
+                insertTheAreaToolStripMenuItem.Enabled = false;
+                добавитьГородToolStripMenuItem.Enabled = false;
+                добавитьToolStripMenuItem1.Enabled = false;
+            }
+        else 
             switch (treeView1.SelectedNode.Level)
             {
                 case 0:
                     удалитьToolStripMenuItem.Enabled = true;
                     добавитьToolStripMenuItem.Enabled = true;
-                    добавитьГородToolStripMenuItem.Enabled = true;
+                    insertTheAreaToolStripMenuItem.Enabled = true;  
+                    добавитьГородToolStripMenuItem.Enabled = false;
                     добавитьToolStripMenuItem1.Enabled = false;
                     break;
                 case 1:
                     удалитьToolStripMenuItem.Enabled = true;
+                    insertTheAreaToolStripMenuItem.Enabled = false;
+                    добавитьГородToolStripMenuItem.Enabled = true;
+                    добавитьToolStripMenuItem.Enabled = false;
+                    добавитьToolStripMenuItem1.Enabled = false;
+                    break;
+                case 2:
+                    удалитьToolStripMenuItem.Enabled = true;
+                    insertTheAreaToolStripMenuItem.Enabled = false;
                     добавитьГородToolStripMenuItem.Enabled = false;
                     добавитьToolStripMenuItem.Enabled = false;
                     добавитьToolStripMenuItem1.Enabled = true;
                     break;
-                case 2:
+                case 3:
                     удалитьToolStripMenuItem.Enabled = true;
+                    insertTheAreaToolStripMenuItem.Enabled = false;
                     добавитьГородToolStripMenuItem.Enabled = false;
                     добавитьToolStripMenuItem.Enabled = false;
                     добавитьToolStripMenuItem1.Enabled = false;
@@ -196,10 +245,12 @@ namespace WindowsFormsApp1
                     добавитьГородToolStripMenuItem.Enabled = false;
                     добавитьToolStripMenuItem.Enabled = false;
                     добавитьToolStripMenuItem1.Enabled = false;
+                    insertTheAreaToolStripMenuItem.Enabled = false;
                     break;
             }
         }
         
+
 
 
 
@@ -233,15 +284,56 @@ private void InsertDistrict()
         dr.Read();
         var districtId = (int)dr["id_district"];
         dr.Close();
-        var newDistrict = new TreeNode(district.DistrictName, 2, 2)
+        var newDistrict = new TreeNode(district.DistrictName, 3, 3)
         {
             Tag = districtId
         };
         treeView1.SelectedNode.Nodes.Add(newDistrict);
     }
 }
+        private void InsertArea()
+        {
+            var form = new AreaForm();
+            form.ShowDialog();
+            Area area = null;
+            if (form.DialogResult == DialogResult.OK)
+            {
+                area = form.Ar;
+            }
 
-private void InsertCity()
+            using (var cn = new SqlConnection(Cs))
+            {
+                cn.Open();
+
+
+
+                var sql = @"INSERT INTO Area VALUES  (@name, @okrug, @autocod, @capital, @iso, @id)";
+                var cmd = new SqlCommand(sql, cn);
+                if (area == null) return;
+                cmd.Parameters.AddWithValue("@name", area.AreaName);
+                cmd.Parameters.AddWithValue("@id", treeView1.SelectedNode.Tag);
+                cmd.Parameters.AddWithValue("@okrug", area.Okrug);
+                cmd.Parameters.AddWithValue("@autocod", area.Autocod);
+                cmd.Parameters.AddWithValue("@capital", area.Capital);
+                cmd.Parameters.AddWithValue("@iso", area.Iso);
+                cmd.ExecuteNonQuery();
+                sql = @"SELECT id_area FROM Area WHERE area = @name";
+                cmd = new SqlCommand(sql, cn);
+                cmd.Parameters.AddWithValue("@name", area.AreaName);
+                var dr = cmd.ExecuteReader();
+                dr.Read();
+
+                var areaId = (int)dr["id_area"];
+                dr.Close();
+                var newCity = new TreeNode(area.AreaName, 1, 1)
+                {
+                    Tag = areaId
+                };
+
+                treeView1.SelectedNode.Nodes.Add(newCity);
+            }
+        }
+        private void InsertCity()
         {   var form = new Form3();
             form.ShowDialog();
             City city = null;
@@ -256,7 +348,7 @@ private void InsertCity()
                 
                
                 
-                var sql = @"INSERT INTO City VALUES  (@name, @id, @num, @tz, @lat, @long)";
+                var sql = @"INSERT INTO City VALUES  (@name, @num, @tz, @lat, @long,  @id, @telcod, @level, @iso, @vid, @post)";
                 var cmd = new SqlCommand(sql, cn);
                 if (city == null) return;
                 cmd.Parameters.AddWithValue("@name", city.CityName);
@@ -265,6 +357,11 @@ private void InsertCity()
                 cmd.Parameters.AddWithValue("@tz", city.TimeZone);
                 cmd.Parameters.AddWithValue("@lat", city.Latitude);
                 cmd.Parameters.AddWithValue("@long", city.Longitude);
+                cmd.Parameters.AddWithValue("@telcod", city.Telcod);
+                cmd.Parameters.AddWithValue("@level", city.Level);
+                cmd.Parameters.AddWithValue("@iso", city.Iso);
+                cmd.Parameters.AddWithValue("@vid", city.Vid);
+                cmd.Parameters.AddWithValue("@post", city.Post);
                 cmd.ExecuteNonQuery();
                 sql = @"SELECT id_city FROM City WHERE city = @name";
                 cmd = new SqlCommand(sql, cn);
@@ -274,7 +371,7 @@ private void InsertCity()
                 
                 var cityId = (int)dr["id_city"];
                 dr.Close();
-                var newCity = new TreeNode(city.CityName, 1, 1)
+                var newCity = new TreeNode(city.CityName, 2, 2)
                 {
                     Tag = cityId
                 };
@@ -293,11 +390,16 @@ private void InsertCity()
             using (SqlConnection cn = new SqlConnection(Cs))
             {
                 cn.Open();
-                var sql = @"INSERT INTO Country VALUES  (@name, @location)";
+                var sql = @"INSERT INTO Country VALUES  (@name, @location, @iso, @telcode, @capital)";
                 var cmd = new SqlCommand(sql, cn);
                 if (country == null) return;
                 cmd.Parameters.AddWithValue("@name", country.CountryName);
                 cmd.Parameters.AddWithValue("@location", country.Location);
+               
+                cmd.Parameters.AddWithValue("@iso", country.Iso);
+                cmd.Parameters.AddWithValue("@telcode", country.Telcod);
+                cmd.Parameters.AddWithValue("@capital", country.Capital);
+
                 cmd.ExecuteNonQuery();
                 
                 sql = @"SELECT id_country FROM Country WHERE country = @name";
@@ -335,10 +437,10 @@ private void InsertCity()
             using (SqlConnection cn = new SqlConnection(Cs))
             {
                 cn.Open();
-                var sql = @"SELECT district  FROM District WHERE district = @name2";
+                var sql = @"SELECT district  FROM District WHERE id_district = @id";
                 var cmd = new SqlCommand(sql, cn);
 
-                cmd.Parameters.AddWithValue("@name2", treeView1.SelectedNode.Text);
+                cmd.Parameters.AddWithValue("@id", treeView1.SelectedNode.Tag);
                 cmd.ExecuteNonQuery();
                 var dr = cmd.ExecuteReader();
                 dr.Read();
@@ -365,12 +467,12 @@ private void InsertCity()
 
 
                 var sql = @"UPDATE District
-                            SET district = @name1
-                            WHERE district = @name2";
+                            SET district = @name
+                            WHERE id_district = @id";
                 var cmd = new SqlCommand(sql, cn);
                 if (district == null) return;
-                cmd.Parameters.AddWithValue("@name1", district.DistrictName);
-                cmd.Parameters.AddWithValue("@name2", treeView1.SelectedNode.Text);
+                cmd.Parameters.AddWithValue("@name", district.DistrictName);
+                cmd.Parameters.AddWithValue("@id", treeView1.SelectedNode.Tag);
 
                 cmd.ExecuteNonQuery();
 
@@ -385,10 +487,10 @@ private void InsertCity()
             using (SqlConnection cn = new SqlConnection(Cs))
             {
                 cn.Open();
-                var sql = @"SELECT city , number_of_districts, time_zone, latitude, longitude FROM City WHERE city = @name2";
+                var sql = @"SELECT city , number_of_districts, time_zone, latitude, longitude, telcod, level, iso, vid, post FROM City WHERE id_city = @id";
                 var cmd = new SqlCommand(sql, cn);
 
-                cmd.Parameters.AddWithValue("@name2", treeView1.SelectedNode.Text);
+                cmd.Parameters.AddWithValue("@id", treeView1.SelectedNode.Tag);
                 cmd.ExecuteNonQuery();
                 var dr = cmd.ExecuteReader();
                 dr.Read();
@@ -398,7 +500,12 @@ private void InsertCity()
                     NumberOfDistricts = (int)dr["number_of_districts"],
                     TimeZone = (int)dr["time_zone"],
                     Latitude = (float)dr["latitude"],
-                    Longitude = (float)dr["longitude"]
+                    Longitude = (float)dr["longitude"],
+                    Telcod = (string)dr["telcod"],
+                    Level = (int)dr["level"],
+                    Iso = (int)dr["iso"],
+                    Vid = (int)dr["vid"],
+                    Post = (string)dr["post"]
 
                 };
                 dr.Close();
@@ -418,16 +525,21 @@ private void InsertCity()
 
 
 
-                var sql = @"Update City SET city =  @name1 ,number_of_districts =   @num, time_zone = @tz, latitude = @lat,longitude =  @long WHERE city = @name2";
+                var sql = @"Update City SET city =  @name ,number_of_districts =   @num, time_zone = @tz, latitude = @lat,longitude =  @long, telcod = @telcod, level=@level, iso=@iso, vid = @vid, post = @post WHERE id_city = @id";
                 var cmd = new SqlCommand(sql, cn);
                 if (city == null) return;
-                cmd.Parameters.AddWithValue("@name1", city.CityName);
-
+                cmd.Parameters.AddWithValue("@name", city.CityName);
+                
                 cmd.Parameters.AddWithValue("@num", city.NumberOfDistricts);
                 cmd.Parameters.AddWithValue("@tz", city.TimeZone);
                 cmd.Parameters.AddWithValue("@lat", city.Latitude);
                 cmd.Parameters.AddWithValue("@long", city.Longitude);
-                cmd.Parameters.AddWithValue("@name2", treeView1.SelectedNode.Text);
+                cmd.Parameters.AddWithValue("@telcod", city.Telcod);
+                cmd.Parameters.AddWithValue("@level", city.Level);
+                cmd.Parameters.AddWithValue("@iso", city.Iso);
+                cmd.Parameters.AddWithValue("@vid", city.Vid);
+                cmd.Parameters.AddWithValue("@post", city.Post);
+                cmd.Parameters.AddWithValue("@id", treeView1.SelectedNode.Tag);
 
                 cmd.ExecuteNonQuery();
 
@@ -439,23 +551,89 @@ private void InsertCity()
                 treeView1.SelectedNode.Text = city.CityName;
             }
         }
+        private void UpdateArea()
+        {
+            var form = new AreaForm();
+
+            using (SqlConnection cn = new SqlConnection(Cs))
+            {
+                cn.Open();
+                var sql = @"SELECT area , okrug, autocod, capital, iso FROM Area WHERE id_area = @id";
+                var cmd = new SqlCommand(sql, cn);
+
+                cmd.Parameters.AddWithValue("@id", treeView1.SelectedNode.Tag);
+                cmd.ExecuteNonQuery();
+                var dr = cmd.ExecuteReader();
+                dr.Read();
+                form.Ar = new Area()
+                {
+                    AreaName = (string)dr["area"],
+                    Okrug = (string)dr["okrug"],
+                    Autocod = (string)dr["autocod"],
+                    Capital = (string)dr["capital"],
+                    Iso = (int)dr["iso"]
+
+                };
+                dr.Close();
+                form.WriteInForm();
+
+            }
+            form.ShowDialog();
+            Area area = null;
+            if (form.DialogResult == DialogResult.OK)
+            {
+                area = form.Ar;
+            }
+
+            using (var cn = new SqlConnection(Cs))
+            {
+                cn.Open();
+
+
+
+                var sql = @"Update Area SET area =  @name ,okrug =   @okrug, autocod = @autocod, capital = @capital,iso =  @iso WHERE id_area = @id";
+                var cmd = new SqlCommand(sql, cn);
+                if (area == null) return;
+                cmd.Parameters.AddWithValue("@name", area.AreaName);
+               
+                cmd.Parameters.AddWithValue("@okrug", area.Okrug);
+                cmd.Parameters.AddWithValue("@autocod", area.Autocod);
+                cmd.Parameters.AddWithValue("@capital", area.Capital);
+                cmd.Parameters.AddWithValue("@iso", area.Iso);
+                cmd.Parameters.AddWithValue("@id", treeView1.SelectedNode.Tag);
+
+                cmd.ExecuteNonQuery();
+
+
+
+
+
+
+                treeView1.SelectedNode.Text = area.AreaName;
+            }
+        }
         private void UpdateCountry()
         {
             var form = new Form2();
             using (SqlConnection cn = new SqlConnection(Cs))
             {
                 cn.Open();
-                var sql = @"SELECT country , location FROM Country WHERE country = @name2";
+                var sql = @"SELECT country , location,  iso, telcod, capital FROM Country WHERE id_country = @id";
                 var cmd = new SqlCommand(sql, cn);
 
-                cmd.Parameters.AddWithValue("@name2", treeView1.SelectedNode.Text);
+                cmd.Parameters.AddWithValue("@id", treeView1.SelectedNode.Tag);
                 cmd.ExecuteNonQuery();
                 var dr = cmd.ExecuteReader();
                 dr.Read();
                 form.Cnt = new Country()
                 {
                     CountryName = (string)dr["country"],
-                    Location = (string)dr["location"]
+                    Location = (string)dr["location"],
+                   
+                    Iso = (int)dr["iso"],
+                    Telcod = (int)dr["telcod"],
+                    Capital = (string)dr["capital"]
+                    
                 };
                 dr.Close();
                 form.WriteInForm();
@@ -471,12 +649,17 @@ private void InsertCity()
             using (SqlConnection cn = new SqlConnection(Cs))
             {
                 cn.Open();
-                var sql = @"Update Country SET country =  @name1 , location =  @location WHERE country = @name2";
+                var sql = @"Update Country SET country =  @name , location =  @location, iso= @iso, telcod = @telcod, capital = @capital WHERE id_country = @id";
                 var cmd = new SqlCommand(sql, cn);
                 if (country == null) return;
-                cmd.Parameters.AddWithValue("@name1", country.CountryName);
+                cmd.Parameters.AddWithValue("@name", country.CountryName);
                 cmd.Parameters.AddWithValue("@location", country.Location);
-                cmd.Parameters.AddWithValue("@name2", treeView1.SelectedNode.Text);
+              
+                cmd.Parameters.AddWithValue("@iso", country.Iso);
+                cmd.Parameters.AddWithValue("@telcod", country.Telcod);
+                cmd.Parameters.AddWithValue("@capital", country.Capital);
+
+                cmd.Parameters.AddWithValue("@id", treeView1.SelectedNode.Tag);
                 cmd.ExecuteNonQuery();
 
 
@@ -485,23 +668,44 @@ private void InsertCity()
         }
         private void updateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(treeView1.SelectedNode.Level == 2)
+            if (treeView1.SelectedNode.Level == 3)
             {
                 UpdateDistrict();
             }
-            else if (treeView1.SelectedNode.Level == 1)
+            else if (treeView1.SelectedNode.Level == 2)
             {
                 UpdateCity();
             }
-            else
+            else if (treeView1.SelectedNode.Level == 1)
             {
-                UpdateCountry();
+                UpdateArea();
             }
+            else UpdateCountry();
         }
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
             
+        }
+
+        private void insertTheAreaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            InsertArea();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_RowContextMenuStripChanged(object sender, DataGridViewRowEventArgs e)
+        {
+
         }
     }
 }

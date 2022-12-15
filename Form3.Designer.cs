@@ -42,6 +42,16 @@ namespace WindowsFormsApp1
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -58,6 +68,7 @@ namespace WindowsFormsApp1
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(168, 22);
             this.textBox1.TabIndex = 1;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox2
             // 
@@ -97,6 +108,7 @@ namespace WindowsFormsApp1
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(168, 22);
             this.textBox4.TabIndex = 9;
+            this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox4_KeyPress);
             // 
             // label4
@@ -113,6 +125,7 @@ namespace WindowsFormsApp1
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(168, 22);
             this.textBox5.TabIndex = 7;
+            this.textBox5.TextChanged += new System.EventHandler(this.textBox5_TextChanged);
             this.textBox5.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox5_KeyPress);
             // 
             // label5
@@ -134,11 +147,106 @@ namespace WindowsFormsApp1
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(479, 65);
+            this.textBox6.MaxLength = 4;
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(168, 22);
+            this.textBox6.TabIndex = 12;
+            this.textBox6.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox6_KeyPress);
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(478, 34);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(212, 19);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "Enter the telcode";
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(477, 141);
+            this.textBox7.MaxLength = 1;
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(168, 22);
+            this.textBox7.TabIndex = 14;
+            this.textBox7.TextChanged += new System.EventHandler(this.textBox7_TextChanged);
+            this.textBox7.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox7_KeyPress);
+            // 
+            // label7
+            // 
+            this.label7.Location = new System.Drawing.Point(476, 110);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(212, 19);
+            this.label7.TabIndex = 13;
+            this.label7.Text = "Enter the level";
+            // 
+            // textBox8
+            // 
+            this.textBox8.Location = new System.Drawing.Point(475, 225);
+            this.textBox8.MaxLength = 3;
+            this.textBox8.Name = "textBox8";
+            this.textBox8.Size = new System.Drawing.Size(168, 22);
+            this.textBox8.TabIndex = 16;
+            this.textBox8.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox8_KeyPress);
+            // 
+            // label8
+            // 
+            this.label8.Location = new System.Drawing.Point(474, 194);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(212, 19);
+            this.label8.TabIndex = 15;
+            this.label8.Text = "Enter the iso";
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(29, 306);
+            this.textBox9.MaxLength = 1;
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(168, 22);
+            this.textBox9.TabIndex = 18;
+            this.textBox9.TextChanged += new System.EventHandler(this.textBox9_TextChanged);
+            this.textBox9.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox9_KeyPress);
+            // 
+            // label9
+            // 
+            this.label9.Location = new System.Drawing.Point(28, 275);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(212, 19);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "Enter the vid";
+            // 
+            // textBox10
+            // 
+            this.textBox10.Location = new System.Drawing.Point(473, 306);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(168, 22);
+            this.textBox10.TabIndex = 20;
+            // 
+            // label10
+            // 
+            this.label10.Location = new System.Drawing.Point(472, 275);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(212, 19);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "Enter the post";
+            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 325);
+            this.ClientSize = new System.Drawing.Size(742, 359);
+            this.Controls.Add(this.textBox10);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.textBox9);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.textBox8);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.textBox7);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label4);
@@ -155,6 +263,7 @@ namespace WindowsFormsApp1
             this.Load += new System.EventHandler(this.Form3_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.TextBox textBox4;
@@ -172,5 +281,16 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Label label1;
 
         #endregion
+
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.Label label10;
     }
 }

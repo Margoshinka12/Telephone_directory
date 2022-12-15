@@ -13,3 +13,4 @@ C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\Windows
 C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Form4.resources
 C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.MainForm.resources
 C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.LoginForm.resources
+C:\Users\margo\RiderProjects\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.AreaForm.resources

@@ -21,11 +21,17 @@ namespace WindowsFormsApp1
         {
             C = new City
             {
-              CityName = textBox1.Text,
-                  NumberOfDistricts = int.Parse(textBox2.Text),
-                  TimeZone = int.Parse(textBox3.Text),
-                  Latitude = float.Parse(textBox5.Text),
-                  Longitude = float.Parse(textBox4.Text),
+                CityName = textBox1.Text,
+                NumberOfDistricts = int.Parse(textBox2.Text),
+                TimeZone = int.Parse(textBox3.Text),
+                Latitude = float.Parse(textBox5.Text),
+                Longitude = float.Parse(textBox4.Text),
+                Telcod = textBox6.Text,
+                Level = int.Parse(textBox7.Text),
+                Iso = int.Parse(textBox8.Text),
+                Vid = int.Parse(textBox9.Text),
+                Post = textBox10.Text
+
             };
             Close();
         }
@@ -39,7 +45,7 @@ namespace WindowsFormsApp1
         {
             var number = e.KeyChar;
                         
-            if (!char.IsDigit(number))
+            if (!char.IsDigit(number) && number != 8)
             {
                 e.Handled = true;
             }
@@ -49,7 +55,7 @@ namespace WindowsFormsApp1
         {
              var number = e.KeyChar;
                                     
-                                    if (!char.IsDigit(number))
+                                    if (!char.IsDigit(number) && number != 8)
                                     {
                                         e.Handled = true;
                                     }
@@ -59,7 +65,7 @@ namespace WindowsFormsApp1
         {
             var number = e.KeyChar;
                         
-            if (!char.IsDigit(number))
+            if (!char.IsDigit(number) && number != 8)
             {
                 e.Handled = true;
             }
@@ -69,7 +75,7 @@ namespace WindowsFormsApp1
         {
             var number = e.KeyChar;
                         
-            if (!char.IsDigit(number))
+            if (!char.IsDigit(number) && number != 8)
             {
                 e.Handled = true;
             }
@@ -81,6 +87,78 @@ namespace WindowsFormsApp1
             textBox3.Text = C.TimeZone.ToString();
             textBox5.Text = C.Latitude.ToString();
             textBox4.Text = C.Longitude.ToString();
+            textBox6.Text = C.Telcod.ToString();
+            textBox7.Text = C.Level.ToString();
+            textBox8.Text = C.Iso.ToString();
+            textBox9.Text = C.Vid.ToString();
+            textBox10.Text = C.Post.ToString();
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void textBox9_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void textBox7_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var number = e.KeyChar;
+
+            if (!char.IsDigit(number) && number != 8)
+            {
+                e.Handled = true;
+            }
+            
+        }
+
+        private void textBox9_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var number = e.KeyChar;
+
+            if (!char.IsDigit(number) && number != 8)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox8_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var number = e.KeyChar;
+
+            if (!char.IsDigit(number) && number != 8)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox6_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            var number = e.KeyChar;
+
+            if (!char.IsDigit(number) && number != 8)
+            {
+                e.Handled = true;
+            }
         }
     }
     public class City
@@ -91,13 +169,25 @@ namespace WindowsFormsApp1
         public int TimeZone;
         public float Latitude;
         public float Longitude;
+        public string Telcod;
+        public int Level;
+        public int Iso;
+        public int Vid;
+        public string Post;
 
         public City(string cityName,
-            string countryName,
+           
             int numberOfDistricts,
             int timeZone,
             float latitude,
-            float longitude)
+            float longitude,
+            string telcod,
+        int level,
+         int iso,
+        int vid,
+        string post
+
+            )
         {
             this.CityName = cityName;
 
@@ -106,6 +196,12 @@ namespace WindowsFormsApp1
             this.TimeZone = timeZone;
             this.Latitude = latitude;
             this.Longitude = longitude;
+            this.Telcod = telcod;
+            this.Level = level;
+            this.Iso = iso;
+            this.Vid = vid; 
+            this.Post = post;   
+
         }
 
         public City()
@@ -113,10 +209,15 @@ namespace WindowsFormsApp1
             this.CityName = "";
 
 
-            this.NumberOfDistricts = -1;
-            this.TimeZone = -1;
+            this.NumberOfDistricts = 0;
+            this.TimeZone = 0;
             this.Latitude = 0;
             this.Longitude = 0;
+            this.Telcod = "";
+            this.Level = 0;
+            this.Iso = 0;
+            this.Vid = 0;
+            this.Post = "";
         }
     }
 }

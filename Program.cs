@@ -21,7 +21,8 @@ namespace WindowsFormsApp1
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //MainForm mf = new MainForm();
-            Application.Run(new LoginForm());
+            //Application.Run(new LoginForm());
+            Application.Run(new MainForm());
             //mf.Show();
             //mf.OpenLoginForm();
 
