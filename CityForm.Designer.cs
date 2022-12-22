@@ -2,7 +2,7 @@
 
 namespace WindowsFormsApp1
 {
-    partial class Form3
+    partial class CityForm
     {
         /// <summary>
         /// Required designer variable.
@@ -31,6 +31,7 @@ namespace WindowsFormsApp1
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CityForm));
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -52,19 +53,21 @@ namespace WindowsFormsApp1
             this.label9 = new System.Windows.Forms.Label();
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(30, 34);
+            this.label1.Location = new System.Drawing.Point(30, 110);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(212, 19);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Enter the city name\r\n";
+            this.label1.Text = "Название города";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(31, 65);
+            this.textBox1.Location = new System.Drawing.Point(31, 141);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(168, 22);
             this.textBox1.TabIndex = 1;
@@ -72,7 +75,7 @@ namespace WindowsFormsApp1
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(31, 141);
+            this.textBox2.Location = new System.Drawing.Point(252, 241);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(168, 22);
             this.textBox2.TabIndex = 3;
@@ -80,27 +83,27 @@ namespace WindowsFormsApp1
             // 
             // label2
             // 
-            this.label2.Location = new System.Drawing.Point(30, 110);
+            this.label2.Location = new System.Drawing.Point(249, 207);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(212, 19);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Enter the number of districts\r\n";
+            this.label2.Text = "Количество районов";
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(31, 225);
+            this.textBox3.Location = new System.Drawing.Point(31, 242);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(168, 22);
+            this.textBox3.Size = new System.Drawing.Size(170, 22);
             this.textBox3.TabIndex = 5;
             this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
             // 
             // label3
             // 
-            this.label3.Location = new System.Drawing.Point(30, 194);
+            this.label3.Location = new System.Drawing.Point(30, 192);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(212, 19);
+            this.label3.Size = new System.Drawing.Size(169, 47);
             this.label3.TabIndex = 4;
-            this.label3.Text = "Enter the time zone\r\n";
+            this.label3.Text = "Временная зона, \r\nотклонение времени\r\nот GMT(UTC)";
             // 
             // textBox4
             // 
@@ -117,7 +120,7 @@ namespace WindowsFormsApp1
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(212, 19);
             this.label4.TabIndex = 8;
-            this.label4.Text = "Enter the longitude\r\n";
+            this.label4.Text = "Долгота";
             // 
             // textBox5
             // 
@@ -134,12 +137,12 @@ namespace WindowsFormsApp1
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(212, 19);
             this.label5.TabIndex = 6;
-            this.label5.Text = "Enter the latitude\r\n";
+            this.label5.Text = "Широта";
             // 
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(252, 225);
+            this.button1.Location = new System.Drawing.Point(252, 398);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(168, 31);
             this.button1.TabIndex = 10;
@@ -162,11 +165,11 @@ namespace WindowsFormsApp1
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(212, 19);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Enter the telcode";
+            this.label6.Text = "Телефонный код города";
             // 
             // textBox7
             // 
-            this.textBox7.Location = new System.Drawing.Point(477, 141);
+            this.textBox7.Location = new System.Drawing.Point(481, 300);
             this.textBox7.MaxLength = 1;
             this.textBox7.Name = "textBox7";
             this.textBox7.Size = new System.Drawing.Size(168, 22);
@@ -178,30 +181,30 @@ namespace WindowsFormsApp1
             // 
             this.label7.Location = new System.Drawing.Point(476, 110);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(212, 19);
+            this.label7.Size = new System.Drawing.Size(224, 187);
             this.label7.TabIndex = 13;
-            this.label7.Text = "Enter the level";
+            this.label7.Text = resources.GetString("label7.Text");
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(475, 225);
+            this.textBox8.Location = new System.Drawing.Point(252, 334);
             this.textBox8.MaxLength = 3;
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(168, 22);
+            this.textBox8.Size = new System.Drawing.Size(191, 22);
             this.textBox8.TabIndex = 16;
             this.textBox8.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox8_KeyPress);
             // 
             // label8
             // 
-            this.label8.Location = new System.Drawing.Point(474, 194);
+            this.label8.Location = new System.Drawing.Point(251, 303);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(212, 19);
+            this.label8.Size = new System.Drawing.Size(223, 19);
             this.label8.TabIndex = 15;
-            this.label8.Text = "Enter the iso";
+            this.label8.Text = "Iso";
             // 
             // textBox9
             // 
-            this.textBox9.Location = new System.Drawing.Point(29, 306);
+            this.textBox9.Location = new System.Drawing.Point(31, 334);
             this.textBox9.MaxLength = 1;
             this.textBox9.Name = "textBox9";
             this.textBox9.Size = new System.Drawing.Size(168, 22);
@@ -211,32 +214,51 @@ namespace WindowsFormsApp1
             // 
             // label9
             // 
-            this.label9.Location = new System.Drawing.Point(28, 275);
+            this.label9.Location = new System.Drawing.Point(30, 276);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(212, 19);
+            this.label9.Size = new System.Drawing.Size(212, 55);
             this.label9.TabIndex = 17;
-            this.label9.Text = "Enter the vid";
+            this.label9.Text = "1-город, 2-поселок,\r\n 3-село, 4-деревня,\r\n 5-станица, 6-хутор";
             // 
             // textBox10
             // 
-            this.textBox10.Location = new System.Drawing.Point(473, 306);
+            this.textBox10.Location = new System.Drawing.Point(479, 378);
             this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(168, 22);
+            this.textBox10.Size = new System.Drawing.Size(222, 22);
             this.textBox10.TabIndex = 20;
             // 
             // label10
             // 
-            this.label10.Location = new System.Drawing.Point(472, 275);
+            this.label10.Location = new System.Drawing.Point(478, 347);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(212, 19);
+            this.label10.Size = new System.Drawing.Size(266, 19);
             this.label10.TabIndex = 19;
-            this.label10.Text = "Enter the post";
+            this.label10.Text = "Почтовый код (Индекс)";
             // 
-            // Form3
+            // textBox11
+            // 
+            this.textBox11.Enabled = false;
+            this.textBox11.Location = new System.Drawing.Point(29, 65);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(168, 22);
+            this.textBox11.TabIndex = 22;
+            this.textBox11.Text = "0";
+            // 
+            // label11
+            // 
+            this.label11.Location = new System.Drawing.Point(28, 34);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(212, 19);
+            this.label11.TabIndex = 21;
+            this.label11.Text = "Id";
+            // 
+            // CityForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(742, 359);
+            this.ClientSize = new System.Drawing.Size(774, 441);
+            this.Controls.Add(this.textBox11);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.textBox10);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.textBox9);
@@ -258,7 +280,7 @@ namespace WindowsFormsApp1
             this.Controls.Add(this.label2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label1);
-            this.Name = "Form3";
+            this.Name = "CityForm";
             this.Text = "Form3";
             this.Load += new System.EventHandler(this.Form3_Load);
             this.ResumeLayout(false);
@@ -292,5 +314,7 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox textBox10;
         private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.Label label11;
     }
 }

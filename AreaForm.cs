@@ -29,6 +29,7 @@ namespace WindowsFormsApp1
             textBox5.Text = Ar.Capital;
             textBox4.Text = Ar.Iso.ToString();
             textBox3.Text = Ar.Autocod;
+            textBox6.Text = Ar.Id.ToString();
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -49,7 +50,8 @@ namespace WindowsFormsApp1
 
                 Capital = textBox5.Text,
                 Iso = int.Parse(textBox4.Text),
-                Autocod = textBox3.Text
+                Autocod = textBox3.Text,
+                Id = int.Parse(textBox6.Text)
             };
             Close();
         }
@@ -73,13 +75,14 @@ namespace WindowsFormsApp1
         public string Autocod;
         public string Capital;
         public int Iso;
-        
+        public int Id;
 
         public Area(string areaName,
             string okrug,
            string autocod,
          string capital,
-         int iso
+         int iso,
+            int id
         
             )
 
@@ -89,7 +92,7 @@ namespace WindowsFormsApp1
             this.Autocod = autocod;
             this.Capital = capital;
             this.Iso = iso;
-
+            this.Id = id;
             
 
         }
@@ -101,6 +104,7 @@ namespace WindowsFormsApp1
             this.Autocod = "";
             this.Capital = "";
             this.Iso =0;
+            this.Id = 0;
         }
     }
 }

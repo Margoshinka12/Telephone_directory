@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace WindowsFormsApp1
 {  
-    public partial class Form3 : Form
+    public partial class CityForm : Form
     {
-        public Form3()
+        public CityForm()
         {
             InitializeComponent();
         }
@@ -19,21 +19,26 @@ namespace WindowsFormsApp1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            C = new City
+            try
             {
-                CityName = textBox1.Text,
-                NumberOfDistricts = int.Parse(textBox2.Text),
-                TimeZone = int.Parse(textBox3.Text),
-                Latitude = float.Parse(textBox5.Text),
-                Longitude = float.Parse(textBox4.Text),
-                Telcod = textBox6.Text,
-                Level = int.Parse(textBox7.Text),
-                Iso = int.Parse(textBox8.Text),
-                Vid = int.Parse(textBox9.Text),
-                Post = textBox10.Text
+                C = new City
+                {
+                    CityName = textBox1.Text,
+                    NumberOfDistricts = int.Parse(textBox2.Text),
+                    TimeZone = int.Parse(textBox3.Text),
+                    Latitude = float.Parse(textBox5.Text),
+                    Longitude = float.Parse(textBox4.Text),
+                    Telcod = textBox6.Text,
+                    Level = int.Parse(textBox7.Text),
+                    Iso = int.Parse(textBox8.Text),
+                    Vid = int.Parse(textBox9.Text),
+                    Post = textBox10.Text,
+                    Id = int.Parse(textBox11.Text)
 
-            };
-            Close();
+                };
+                Close();
+            }
+            catch { MessageBox.Show("Вы заполнили не все поля"); Close(); }
         }
 
         private void Form3_Load(object sender, EventArgs e)
@@ -92,6 +97,7 @@ namespace WindowsFormsApp1
             textBox8.Text = C.Iso.ToString();
             textBox9.Text = C.Vid.ToString();
             textBox10.Text = C.Post.ToString();
+            textBox11.Text = C.Id.ToString();
 
         }
 
@@ -174,6 +180,7 @@ namespace WindowsFormsApp1
         public int Iso;
         public int Vid;
         public string Post;
+        public int Id;
 
         public City(string cityName,
            
@@ -185,13 +192,14 @@ namespace WindowsFormsApp1
         int level,
          int iso,
         int vid,
-        string post
+        string post,
+        int id
 
             )
         {
             this.CityName = cityName;
 
-
+            this.Id = id;
             this.NumberOfDistricts = numberOfDistricts;
             this.TimeZone = timeZone;
             this.Latitude = latitude;
@@ -208,7 +216,7 @@ namespace WindowsFormsApp1
         {
             this.CityName = "";
 
-
+            this.Id = 0;
             this.NumberOfDistricts = 0;
             this.TimeZone = 0;
             this.Latitude = 0;

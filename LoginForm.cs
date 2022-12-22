@@ -32,7 +32,7 @@ namespace WindowsFormsApp1
             get { return textBox2.Text; }
 
         }
-        static bool Adminka = false;
+        static public int Adminka = 0;
         static bool Result = false;
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
@@ -128,7 +128,7 @@ namespace WindowsFormsApp1
                 {
                     var dr = cmd.ExecuteReader();
                     dr.Read();
-                    Adminka = (bool)dr["adminka"];
+                    Adminka = (int)dr["adminka"];
                      pwd = (string)dr["password"];
                      salt = (string)dr["salt"];
                     dr.Close();
@@ -156,11 +156,11 @@ namespace WindowsFormsApp1
                 
                 var result = (int)cmd.ExecuteScalar();
                 if (result ==1) return false;
-                cmd = new SqlCommand(@"INSERT INTO Users VALUES (@Login, @Password, @Adminka, @Date, @Salt)", cn);
+                cmd = new SqlCommand(@"INSERT INTO Users VALUES (@Login, @Password, @Adminka,  @Salt)", cn);
                 cmd.Parameters.AddWithValue("@Login", login);
                 cmd.Parameters.AddWithValue("@Password", hash);
                 cmd.Parameters.AddWithValue("@Adminka", 0);
-                cmd.Parameters.AddWithValue("@Date", DateTime.Today);
+                
                 cmd.Parameters.AddWithValue("@Salt", salt);
                 cmd.ExecuteNonQuery();
 

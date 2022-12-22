@@ -39,12 +39,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(257, 233);
+            this.button1.Location = new System.Drawing.Point(147, 268);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(168, 31);
             this.button1.TabIndex = 21;
@@ -68,7 +70,7 @@
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(212, 19);
             this.label4.TabIndex = 19;
-            this.label4.Text = "Enter the iso";
+            this.label4.Text = "Iso";
             // 
             // textBox5
             // 
@@ -83,7 +85,7 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(212, 19);
             this.label5.TabIndex = 17;
-            this.label5.Text = "Enter the capital";
+            this.label5.Text = "Областной центр";
             // 
             // textBox3
             // 
@@ -98,7 +100,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(212, 19);
             this.label3.TabIndex = 15;
-            this.label3.Text = "Enter the autocod";
+            this.label3.Text = "Автомобильный код";
             // 
             // textBox2
             // 
@@ -113,11 +115,11 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(212, 19);
             this.label2.TabIndex = 13;
-            this.label2.Text = "Enter the okrug name\r\n";
+            this.label2.Text = "Имя округа";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(36, 73);
+            this.textBox1.Location = new System.Drawing.Point(257, 233);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(168, 22);
             this.textBox1.TabIndex = 12;
@@ -125,17 +127,36 @@
             // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(35, 42);
+            this.label1.Location = new System.Drawing.Point(256, 202);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(212, 19);
             this.label1.TabIndex = 11;
-            this.label1.Text = "Enter the area name\r\n";
+            this.label1.Text = "Имя области";
+            // 
+            // textBox6
+            // 
+            this.textBox6.Enabled = false;
+            this.textBox6.Location = new System.Drawing.Point(34, 73);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(168, 22);
+            this.textBox6.TabIndex = 23;
+            this.textBox6.Text = "0";
+            // 
+            // label6
+            // 
+            this.label6.Location = new System.Drawing.Point(33, 42);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(212, 19);
+            this.label6.TabIndex = 22;
+            this.label6.Text = "id";
             // 
             // AreaForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(507, 311);
+            this.Controls.Add(this.textBox6);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.label4);
@@ -167,5 +188,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Label label6;
     }
 }
